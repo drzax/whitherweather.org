@@ -1,0 +1,27 @@
+{
+  "name": "whitherweatherorg",
+  "version": "1.0.0-pre",
+  "description": "A project generated from aunty's react project template.",
+  "license": "MIT",
+  "private": true,
+  "contributors": [
+    "Simon Elvery <simon@elvery.net>"
+  ],
+  "aunty": {
+    "type": "react"
+  },
+  "scripts": {
+    "start": "aunty serve",
+    "test": "aunty test"
+  },
+  "devDependencies": {
+    "@abcnews/aunty": "^10.3.0",
+    "react-test-renderer": "^16.8.3"
+  },
+  "dependencies": {
+    "date-fns": "^1.30.1",
+    "netlify-lambda": "^1.4.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  }
+}
