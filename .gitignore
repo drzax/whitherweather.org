@@ -4,6 +4,8 @@
 # output
 /.build
 /.deploy
+/.lambda
+.envrc
 
 # misc
 .DS_Store
