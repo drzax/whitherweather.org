@@ -182,3 +182,39 @@ $dialog-background: #fff;
   width: 100%;
   box-sizing: border-box;
 }
+
+.successIndicator {
+  animation-name: explode;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.5s;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  background: green;
+  color: #fff;
+  display: block;
+  width: 20vmin;
+  height: 20vmin;
+  position: absolute;
+  top: calc(50% - 10vmin);
+  left: calc(50% - 10vmin);
+  border-radius: 50%;
+  line-height: 20vmin;
+  font-size: 15vmin;
+  text-align: center;
+  padding-top: 2vmin;
+  box-sizing: border-box;
+  font-family: monospace;
+  pointer-events: none;
+}
+
+@keyframes explode {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(8);
+    opacity: 0;
+  }
+}

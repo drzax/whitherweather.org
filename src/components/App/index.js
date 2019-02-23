@@ -3,18 +3,20 @@ import { format } from "date-fns";
 import styles from "./styles.scss";
 
 const prompts = ["It's never just rain …", "The weather here today is …"];
+const getDefaultState = () => ({
+  content: localStorage.weatherReport || "",
+  now: new Date(),
+  locationText: "",
+  locationInputOpen: false,
+  customLocationText: "",
+  prompt: prompts[Math.floor(Math.random() * prompts.length)]
+});
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.contentRef = React.createRef();
-    this.state = {
-      content: localStorage.weatherReport || "",
-      now: new Date(),
-      locationText: "",
-      locationInputOpen: false,
-      customLocationText: ""
-    };
+    this.state = getDefaultState();
     this.handleLocationFocus = this.handleLocationFocus.bind(this);
     this.handleLocationBlur = this.handleLocationBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -57,7 +59,6 @@ export default class App extends React.Component {
   }
 
   handleLocationFocus(event) {
-    console.log("focussed", !this.state.location);
     if (!this.state.location) {
       this.setState({ location: "" });
     }
@@ -101,7 +102,7 @@ export default class App extends React.Component {
 
     if ("geolocation" in navigator && !this.locationCoordinates) {
       // status. = "Locating…";
-      console.log("locating");
+
       navigator.geolocation.getCurrentPosition(success, err, {
         timeout: 10 * 1000
       });
@@ -114,7 +115,6 @@ export default class App extends React.Component {
   }
 
   handleLocationInputKeyPress(event) {
-    console.log("event", event.key);
     if (event.key === "Enter") {
       this.setState({
         locationInputOpen: false,
@@ -139,6 +139,9 @@ export default class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      sending: true
+    });
     const { locationText, customLocationText, content, now } = this.state;
     const data = {
       locationText,
@@ -149,17 +152,26 @@ export default class App extends React.Component {
     };
     fetch(ENDPOINT_SEND, {
       method: "POST",
-      // mode: "cors", // no-cors, cors, *same-origin
-      // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      // credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json"
-        // "Content-Type": "application/x-www-form-urlencoded",
-      },
-      redirect: "follow", // manual, *follow, error
-      // referrer: "no-referrer", // no-referrer, *client
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    }).then(console.log); // parses response to JSON
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    }).then(res => {
+      this.setState({
+        sending: false
+      });
+      if (res.status === 200) {
+        this.setState({
+          ...getDefaultState(),
+          showSuccess: true
+        });
+        setTimeout(() => {
+          this.setState({
+            showSuccess: false
+          });
+        }, 3000);
+      } else {
+        alert("Ooops, something went wrong. Have another go?");
+      }
+    });
   }
 
   render() {
@@ -168,19 +180,27 @@ export default class App extends React.Component {
       now,
       locationText,
       customLocationText,
-      locationInputOpen
+      locationInputOpen,
+      prompt,
+      sending,
+      showSuccess
     } = this.state;
+
     return (
       <div className={styles.container}>
         <textarea
           ref={this.contentRef}
           className={styles.weather}
           value={content}
-          placeholder={prompts[Math.floor(Math.random() * prompts.length)]}
+          placeholder={prompt}
           onChange={this.handleChange}
         />
         <div className={styles.submitContainer}>
-          <button onClick={this.handleSubmit} className={styles.submit}>
+          <button
+            disabled={sending}
+            onClick={this.handleSubmit}
+            className={styles.submit}
+          >
             Send report
           </button>
           <details>
@@ -239,6 +259,7 @@ export default class App extends React.Component {
             </details>
           </span>
         </section>
+        {showSuccess ? <div className={styles.successIndicator}>✓</div> : null}
       </div>
     );
   }
