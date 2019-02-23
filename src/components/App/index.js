@@ -2,7 +2,7 @@ import React from "react";
 import { format } from "date-fns";
 import styles from "./styles.scss";
 
-console.log("ENDPOINT_SEND", ENDPOINT_SEND);
+const prompts = ["It's never just rain …", "The weather here today is …"];
 
 export default class App extends React.Component {
   constructor(props) {
@@ -176,7 +176,7 @@ export default class App extends React.Component {
           ref={this.contentRef}
           className={styles.weather}
           value={content}
-          placeholder="The weather here today is ..."
+          placeholder={prompts[Math.floor(Math.random() * prompts.length)]}
           onChange={this.handleChange}
         />
         <div className={styles.submitContainer}>
