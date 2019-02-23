@@ -2,6 +2,8 @@ import React from "react";
 import { format } from "date-fns";
 import styles from "./styles.scss";
 
+console.log("ENDPOINT_SEND", ENDPOINT_SEND);
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -136,8 +138,28 @@ export default class App extends React.Component {
   }
 
   handleSubmit(event) {
-    alert("A weather was submitted: " + this.state.content);
     event.preventDefault();
+    const { locationText, customLocationText, content, now } = this.state;
+    const data = {
+      locationText,
+      customLocationText,
+      content,
+      now,
+      coordinates: this.locationCoordinates
+    };
+    fetch(ENDPOINT_SEND, {
+      method: "POST",
+      // mode: "cors", // no-cors, cors, *same-origin
+      // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      // credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json"
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      redirect: "follow", // manual, *follow, error
+      // referrer: "no-referrer", // no-referrer, *client
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(console.log); // parses response to JSON
   }
 
   render() {

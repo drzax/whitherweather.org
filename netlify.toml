@@ -1,4 +1,4 @@
 [build]
-  command = "npx netlify-lambda build"
-  functions = "build-lambda" #  netlify-lambda reads this
-  publish = "build-lambda"
+  command = "aunty build && netlify-lambda build lambda"
+  functions = ".lambda" #  netlify-lambda reads this
+  publish = ".build"
