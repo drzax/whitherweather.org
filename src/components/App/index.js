@@ -155,10 +155,12 @@ export default class App extends React.Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     }).then(res => {
+      console.log("res", res);
       this.setState({
         sending: false
       });
       if (res.status === 200) {
+        localStorage.weatherReport = "";
         this.setState({
           ...getDefaultState(),
           showSuccess: true
@@ -167,7 +169,7 @@ export default class App extends React.Component {
           this.setState({
             showSuccess: false
           });
-        }, 3000);
+        }, 1400);
       } else {
         alert("Ooops, something went wrong. Have another go?");
       }
