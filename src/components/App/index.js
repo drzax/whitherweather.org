@@ -233,7 +233,7 @@ export default class App extends React.Component {
               <p>
                 I like collecting descriptions of the weather. Any weather
                 reports you submit will simply be emailed{" "}
-                <a href="https://elvery.net">to me</a>.
+                <a href="https://elvery.net">to me</a>. Give it a try?
               </p>
               <small>
                 <a href="/terms-and-privacy/">terms / privacy</a>
@@ -244,14 +244,14 @@ export default class App extends React.Component {
         <section className={styles.meta}>
           <span>
             It's {format(now, "dddd h:mma")} in{" "}
-            <details open={locationInputOpen} className={styles.location}>
-              <summary
+            <div className={styles.location}>
+              <span
                 onClick={this.handleLocationClick}
                 className={styles.locationText}
               >
                 {locationText ? locationText : "an undisclosed location"}
-              </summary>
-              <div>
+              </span>
+              <div style={{ display: locationInputOpen ? "block" : "none" }}>
                 <p>
                   Don't want to give permission? Location not correct? That's
                   cool.
@@ -266,7 +266,7 @@ export default class App extends React.Component {
                   type="text"
                 />
               </div>
-            </details>
+            </div>
           </span>
         </section>
         {showSuccess ? <div className={styles.successIndicator}>✓</div> : null}
