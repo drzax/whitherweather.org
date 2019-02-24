@@ -141,10 +141,18 @@ export default class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { locationText, customLocationText, content, now } = this.state;
+    if (content.length === 0) {
+      alert(
+        `You should definitely describe the weather before hitting that button. That's the whole point. Be effusive.`
+      );
+      return;
+    }
+
     this.setState({
       sending: true
     });
-    const { locationText, customLocationText, content, now } = this.state;
+
     const data = {
       locationText,
       customLocationText,
