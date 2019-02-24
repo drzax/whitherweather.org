@@ -71,6 +71,7 @@ export default class App extends React.Component {
     const success = p => {
       clearTimeout(promptTimeout);
       this.locationCoordinates = p;
+
       fetch(
         `https://nominatim.openstreetmap.org/reverse.php?format=jsonv2&lat=${
           p.coords.latitude
@@ -148,20 +149,26 @@ export default class App extends React.Component {
       locationText,
       customLocationText,
       content,
-      now,
-      coordinates: this.locationCoordinates
+      now: now.toString(),
+      latitude: this.locationCoordinates
+        ? this.locationCoordinates.coords.latitude
+        : "unknown",
+      longitude: this.locationCoordinates
+        ? this.locationCoordinates.coords.longitude
+        : "unknown"
     };
+
     fetch(ENDPOINT_SEND, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     }).then(res => {
-      console.log("res", res);
       this.setState({
         sending: false
       });
       if (res.status === 200) {
         localStorage.weatherReport = "";
+        this.locationCoordinates = null;
         this.setState({
           ...getDefaultState(),
           showSuccess: true

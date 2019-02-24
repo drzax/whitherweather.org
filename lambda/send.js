@@ -9,17 +9,26 @@ exports.handler = function(event, context, callback) {
   }
 
   const report = JSON.parse(event.body);
+  const location =
+    report.customLocationText ||
+    report.locationText ||
+    "an undisclosed location";
 
   const msg = {
     to: "simon@elvery.net",
     from: "hello@whitherweather.org",
-    subject: `A weather report from ${report.customLocationText ||
-      report.locationText ||
-      "an unknown location"}`,
-    text: `${report.content}
+    subject: `A weather report from ${location}`,
+    text: `You have a new weather report!
 
-Sent at: ${report.now}
-Coordinates: ${report.coordinates}
+TIME: ${report.now}
+
+LOCATION: ${location}
+
+LATITUDE: ${report.latitude}
+
+LONGITUDE: ${report.longitude}
+
+DESCRIPTION: ${report.content}
 `
   };
   sgMail.send(msg);
