@@ -46,6 +46,10 @@ body {
   justify-content: flex-start;
   align-items: center;
 
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
   summary {
     display: inline-block;
     width: $help-size;
@@ -165,6 +169,9 @@ $dialog-background: #fff;
       bottom: -0.5rem;
       background: #fff;
     }
+  }
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 

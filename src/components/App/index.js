@@ -1,6 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 import styles from "./styles.scss";
+import Div100vh from "react-div-100vh";
 
 const prompts = ["It's never just rain …", "The weather here today is …"];
 const getDefaultState = () => ({
@@ -189,7 +190,7 @@ export default class App extends React.Component {
     } = this.state;
 
     return (
-      <div className={styles.container}>
+      <Div100vh className={styles.container}>
         <textarea
           ref={this.contentRef}
           className={styles.weather}
@@ -262,7 +263,7 @@ export default class App extends React.Component {
           </span>
         </section>
         {showSuccess ? <div className={styles.successIndicator}>✓</div> : null}
-      </div>
+      </Div100vh>
     );
   }
 }
