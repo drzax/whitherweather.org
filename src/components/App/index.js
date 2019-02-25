@@ -219,7 +219,7 @@ export default class App extends React.Component {
             onClick={this.handleSubmit}
             className={styles.submit}
           >
-            Send report
+            Share
           </button>
           <details>
             <summary>?</summary>
