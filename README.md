@@ -9,7 +9,7 @@ Code for the site [whitherweather.org](https://whitherweather.org) — an experi
 	<cite>
 		<a href="http://www.gutenberg.org/cache/epub/768/pg768.txt">
 			Wuthering Heights
-		</a>{" "}
+		</a>
 		<br />
 		by Emily Bronte
 	</cite>
