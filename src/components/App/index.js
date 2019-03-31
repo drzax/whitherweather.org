@@ -166,7 +166,7 @@ export default class App extends React.Component {
         : "unknown"
     };
 
-    fetch(ENDPOINT_SEND, {
+    fetch(ENDPOINT_STORE, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
