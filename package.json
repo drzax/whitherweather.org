@@ -15,13 +15,14 @@
     "test": "aunty test"
   },
   "devDependencies": {
-    "@abcnews/aunty": "^10.3.0",
+    "@abcnews/aunty": "^10.3.1",
     "react-test-renderer": "^16.8.3"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",
     "concurrently": "^4.1.0",
     "date-fns": "^1.30.1",
+    "googleapis": "^39.1.0",
     "netlify-lambda": "^1.4.2",
     "react": "^16.8.3",
     "react-div-100vh": "^0.3.2",
