@@ -15,7 +15,7 @@ Code for the site [whitherweather.org](https://whitherweather.org) — an experi
 	</cite>
 </blockquote>
 
-Go on, give it a try.
+Go on, give it a try!
 
 ## Authors
 
