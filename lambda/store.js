@@ -64,7 +64,8 @@ exports.handler = function(event, context, callback) {
   ]).then(
     () => {
       callback(null, {
-        statusCode: 200
+        statusCode: 200,
+        body: "ok"
       });
     },
     err => {
